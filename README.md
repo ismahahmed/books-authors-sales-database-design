@@ -110,7 +110,10 @@
 - book_isbn_genre: book genre bridge table
 
 ## Star Schema
-<img src="https://github.com/user-attachments/assets/a029d94a-bd87-4037-a87e-4b511fc82648" width="600">
+
+<img src="https://github.com/user-attachments/assets/8c4d6636-3203-4f05-b4e1-c409aa8871ea" width="600"/>
+
+
 
 ### Dimension Tables: 4
 - month_year_dim - Time dimension (month, year)
