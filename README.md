@@ -13,7 +13,7 @@
 - History: Complete audit trail + publisher change history
 
 ## Data Flow
-<img src="https://github.com/user-attachments/assets/86e97585-5444-4650-8ec2-767b0c190337" width="600">
+<img src="https://github.com/user-attachments/assets/c9772fca-df8f-474c-960c-fb29eed05146" width="600">
 
 ## ETL Pipeline Steps 
 
