@@ -761,7 +761,7 @@ $$;
 
 
 /*-----------------------------------------------*/
-/* Main Caller */
+/* Main Stored Proc */
 /*-----------------------------------------------*/
 
 /*
@@ -915,6 +915,7 @@ CALL process_monthly_sales(1, 2026);
 SELECT * FROM sales_fact  JOIN month_year_dim ON sales_fact.month_year_dim_id = month_year_dim.month_year_dim_id 
 WHERE month_year_dim.month = 1 AND month_year_dim.year = 2026;
 
+SELECT * FROM month_year_dim;
 
 SELECT COUNT(*) FROM synthetic_insert WHERE month = 1 AND year = 2026 AND loaded_to_warehouse = TRUE;
 
@@ -949,10 +950,64 @@ SELECT  book_dim_id, book_title, publisher, effective_date, expire_date, current
 FROM book_dim WHERE publisher IN ('two dollar radio', 'two dollar radio publishing')
 ORDER BY book_title, effective_date;
 
+SELECT * FROM publisher;
 
 SELECT * FROM book_dim WHERE publisher IN ('two dollar radio', 'two dollar radio publishing');
 
 
+-- DEMO for monthly sales upload!!
+ 
+ 
+SELECT * FROM month_year_dim ORDER BY YEAR, month;
+SELECT * FROM sales_fact;
+
+INSERT INTO synthetic_insert (
+    isbn13,
+    month,
+    year,
+    in_person_sales,
+    online_sales,
+    wholesale_sales,
+    total_sales,
+    average_price,
+    total_revenue,
+    count_returns,
+    net_sales,
+    nyt_best_selling_category,
+    loaded_to_warehouse
+)
+VALUES
+    ('9780375856488', 11, 2024, 100, 100, 100, 400, 24.99, 11120.55, 5, 440, 'Best Hardcover', FALSE),
+    ('9780802137982', 11, 2024, 100, 100, 100, 400, 21.99, 9895.50, 6, 444, 'Best Paperback', FALSE),
+    ('9780552154765', 11, 2024, 100, 100, 100, 400, 19.99, 8795.60, 4, 436, 'Best E-Book', FALSE),
+    ('9780609803875', 11, 2024, 100, 100, 100, 400, 26.99, 12280.45, 7, 448, 'Best Hardcover', FALSE);
+
+CALL process_monthly_sales(11, 2024);
+
+
+SELECT * FROM month_year_dim;
+SELECT * FROM sales_fact JOIN month_year_dim ON sales_fact.month_year_dim_id = month_year_dim.month_year_dim_id 
+WHERE month = 11 AND year = 2024;
+
+
+SELECT 
+    author1.author_name AS author_1,
+    author2.author_name AS author_2,
+    author3.author_name AS author_3,
+    author4.author_name AS author_4,
+    author5.author_name AS author_5,
+    sales_fact.*
+FROM sales_fact
+LEFT JOIN author_dim AS author1 ON sales_fact.author_dim_id_1 = author1.author_dim_id
+LEFT JOIN author_dim AS author2 ON sales_fact.author_dim_id_2 = author2.author_dim_id
+LEFT JOIN author_dim AS author3 ON sales_fact.author_dim_id_3 = author3.author_dim_id
+LEFT JOIN author_dim AS author4 ON sales_fact.author_dim_id_4 = author4.author_dim_id
+LEFT JOIN author_dim AS author5 ON sales_fact.author_dim_id_5 = author5.author_dim_id
+WHERE month_year_dim_id = 17;
+
+
+
+SELECT * FROM etl_log;
 
 
 
