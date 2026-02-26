@@ -1115,5 +1115,5 @@ ALTER TABLE isbn_rating ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAM
 
 
 
-
+SELECT * FROM author_isbn ORDER BY author_id;
 
