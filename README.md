@@ -93,6 +93,8 @@
 ## OLTP Model
 <img src="https://github.com/user-attachments/assets/be969e6f-ef65-49ed-91bf-99445f74c155" width="600">
 
+*Note: All tables in oltp has a `updated_at` column*
+
 ### Tables: 14
 - book: book_id, and titles
 - author: author_id, names and parsed full name (first, middle and last)
